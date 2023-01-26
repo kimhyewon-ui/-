@@ -1,0 +1,102 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/common :: head('게시판')">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link href="navbar-top.css" rel="stylesheet">
+  <title>게시판</title>
+</head>
+
+<body>
+<!-- th:replace 공통적으로 사용할 수 있게 선언해줌 -->
+<!-- ht:replace로 선언 했기때문에 실제로 구동되는건 common.html이고, 따라서 밑에 있는 마크업들 지워도 작동 잘 됨. -->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4" th:replace="fragments/common :: menu('board')">
+
+</nav>
+
+<div class="container">
+  <h2>게시판</h2>
+  <th:block th:object="${board}">
+    <input type="hidden" th:field="*{id}">
+    <div class="mb-3">
+      <label for="title" class="form-label">제목</label>
+      <p type="text" class="form-control" th:classappend="${#fields.hasErrors('title')} ? 'is-invalid'" id="title" th:text="*{title}"> </p>
+    </div>
+    <div class="mb-3">
+      <label for="content" class="form-label">내용</label>
+      <p class="form-control" id="boardContent" rows="3" th:text="*{content}"></p>
+    </div>
+    <div th:each="comment : ${board.comments}" class="comment_list">
+      <ul>
+        <li>
+          <div class="comment_name">
+            <span>이름</span>
+            <p th:text="${comment.name}"></p>
+          </div>
+          <div class="comment_txt">
+            <span>내용</span>
+            <p th:text="${comment.body}"></p>
+          </div>
+          <div class="comment_btn">
+            <button type="button" class="btn btn-danger me-md-2" th:onclick="|deleteComment(*{id}, ${comment.id})|">삭제</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="comment_container">
+        <form th:action="'/' + ${board.id} + @{/comment/new}" method="post">
+          <input type="hidden" th:field="${board.id}">
+          <input type="text" name="body" id="body" cols="30" rows="10" placeholder="댓글을 남겨보세요" style="width: 100%; height:200px;"></input>
+          <button class="btn btn-primary me-md-2"  type="submit"  style="float: left; margin-top: 20px">댓글작성</button>
+        </form>
+    </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top: 20px">
+      <a class="btn btn-primary me-md-2" th:href="@{/}">목록</a>
+      <button class="btn btn-danger me-md-2" type="button" th:onclick="|deleteBoard(*{id})|">삭제</button>
+      <a class="btn btn-warning me-md-2" th:href="'/'+ ${board.id} + @{/update}">수정</a>
+    </div>
+  </th:block>
+</div>
+
+
+<footer th:replace="fragments/common :: footer"></footer>
+<script>
+        function deleteBoard(id) {
+            // Delete /api/boards/{id}
+            console.log(id);
+            $.ajax({
+                url: "/" + id + "/delete",
+                type: 'POST',
+                success: function(result) {
+                    console.log('result', result);
+                    alert('삭제 됐습니다');
+                    window.location.href = '/';
+                },
+                error: function() {
+                    console.log("error가 남 ㅎㅎ");
+                }
+            });
+        }
+        function deleteComment(id, cid) {
+            console.log(id, cid);
+            $.ajax({
+                url: "/" + id + "/comment/" + cid + "/delete",
+                type: 'POST',
+                success: function(result) {
+                    console.log('result', result);
+                    alert('삭제 됐습니다');
+                    window.location.href = '/view/' + id;
+                },
+                error: function() {
+                    console.log("error가 남 ㅎㅎ");
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
