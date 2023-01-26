@@ -1,0 +1,23 @@
+
+server:
+  servlet:
+    context-path: /api
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  port: 5000
+
+## mysql
+spring:
+  datasource:
+    url: jdbc:mariadb://61.74.241.175:33306/blog
+    username: root
+    password: Kjh501912*
+
+
+logging:
+  level:
+    com:
+      example:
+        board: DEBUG
