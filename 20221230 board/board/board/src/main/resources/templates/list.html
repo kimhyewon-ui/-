@@ -1,0 +1,67 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/common :: head('게시판')">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link href="navbar-top.css" rel="stylesheet">
+  <title>게시판</title>
+</head>
+
+<body>
+<!-- th:replace 공통적으로 사용할 수 있게 선언해줌 -->
+<!-- ht:replace로 선언 했기때문에 실제로 구동되는건 common.html이고, 따라서 밑에 있는 마크업들 지워도 작동 잘 됨. -->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4" th:replace="fragments/common :: menu('board')">
+</nav>
+
+<div class="container">
+  <h2>게시판</h2>
+  <div>총 건수 : <span th:text="${count}"></span></div>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col"><th:block th:if="${sortFlag == 'DESC'}"><a href="http://localhost:8080?sortItems=id&sortFlags=ASC">번호</a></th:block><th:block th:unless="${sortFlag == 'DESC'}"><a href="http://localhost:8080?sortItems=id&sortFlags=DESC">번호</a></th:block></th>
+      <th scope="col"><th:block th:if="${sortFlag == 'DESC'}"><a href="http://localhost:8080?sortItems=title&sortFlags=ASC">제목</a></th:block><th:block th:unless="${sortFlag == 'DESC'}"><a href="http://localhost:8080?sortItems=title&sortFlags=DESC">제목</a></th:block></th>
+      <th scope="col"><th:block th:if="${sortFlag == 'DESC'}"><a href="http://localhost:8080?sortItems=createdAt&sortFlags=ASC">날짜</a></th:block><th:block th:unless="${sortFlag == 'DESC'}"><a href="http://localhost:8080?sortItems=createdAt&sortFlags=DESC">날짜</a></th:block></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="board : ${boards}">
+      <td th:text="${board.id}">Mark</td>
+      <td>
+        <a th:href="@{/view/} + ${board.id}"><th:block th:text="${board.title}"></th:block>   <th:block th:if="${board.commentCnt > 0}">(<span th:text="${board.commentCnt}"></span>)</th:block></a>
+      </td>
+      <td th:text="${board.createdAt}">홍길동</td>
+    </tr>
+    </tbody>
+  </table>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+<!--      <li class="page-item" th:classappend="${1 == boards.pageable.pageNumber + 1} ? 'disabled'">-->
+<!--        <a class="page-link" href="#"-->
+<!--           th:href="@{/board/list(page=${boards.pageable.pageNumber - 1}, searchText=${param.searchText})}">Previous</a>-->
+<!--      </li>-->
+<!--      <li class="page-item" th:classappend="${i == boards.pageable.pageNumber + 1} ? 'disabled'"-->
+<!--          th:each="i : ${#numbers.sequence(startPage, endPage)}">-->
+<!--        <a class="page-link" href="#" th:href="@{/board/list(page=${i - 1}, searchText=${param.searchText})}" th:text="${i}">1</a>-->
+<!--      </li>-->
+<!--      <li class="page-item"-->
+<!--          th:classappend="${boards.totalPages == boards.pageable.pageNumber + 1} ? 'disabled'">-->
+<!--        <a class="page-link" href="#"-->
+<!--           th:href="@{/board/list(page=${boards.pageable.pageNumber + 1}, searchText=${param.searchText})}">Next</a>-->
+<!--      </li>-->
+    </ul>
+  </nav>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a class="btn btn-primary me-md-2" type="button" th:href="@{/form}">쓰기</a>
+  </div>
+</div>
+
+
+<footer th:replace="fragments/common :: footer"></footer>
+</body>
+
+</html>

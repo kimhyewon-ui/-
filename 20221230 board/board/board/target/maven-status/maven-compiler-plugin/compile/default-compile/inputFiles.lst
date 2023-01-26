@@ -1,0 +1,13 @@
+/Users/bblack_hun/Desktop/Project_mail/SPRING_PROJECTS/board/src/main/java/com/example/board/core/utils/Pagination.java
+/Users/bblack_hun/Desktop/Project_mail/SPRING_PROJECTS/board/src/main/java/com/example/board/api/board/repository/BoardRepository.java
+/Users/bblack_hun/Desktop/Project_mail/SPRING_PROJECTS/board/src/main/java/com/example/board/api/comment/entity/Comment.java
+/Users/bblack_hun/Desktop/Project_mail/SPRING_PROJECTS/board/src/main/java/com/example/board/core/utils/Criteria.java
+/Users/bblack_hun/Desktop/Project_mail/SPRING_PROJECTS/board/src/main/java/com/example/board/api/comment/controller/CommentController.java
+/Users/bblack_hun/Desktop/Project_mail/SPRING_PROJECTS/board/src/main/java/com/example/board/api/board/service/BoardService.java
+/Users/bblack_hun/Desktop/Project_mail/SPRING_PROJECTS/board/src/main/java/com/example/board/api/common/Vo/ParamVo.java
+/Users/bblack_hun/Desktop/Project_mail/SPRING_PROJECTS/board/src/main/java/com/example/board/api/board/entity/Board.java
+/Users/bblack_hun/Desktop/Project_mail/SPRING_PROJECTS/board/src/main/java/com/example/board/core/utils/LocalDateUtil.java
+/Users/bblack_hun/Desktop/Project_mail/SPRING_PROJECTS/board/src/main/java/com/example/board/api/comment/repository/CommentRepository.java
+/Users/bblack_hun/Desktop/Project_mail/SPRING_PROJECTS/board/src/main/java/com/example/board/BoardApplication.java
+/Users/bblack_hun/Desktop/Project_mail/SPRING_PROJECTS/board/src/main/java/com/example/board/api/comment/service/CommentService.java
+/Users/bblack_hun/Desktop/Project_mail/SPRING_PROJECTS/board/src/main/java/com/example/board/api/board/controller/BoardController.java
